@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:pageTemplate viewId="/oracle/apps/uikit/common/pageTemplates/MainPageTemplate.jspx" id="pt1">
+        <f:facet name="pageContents">
+            <af:panelBox text="New Dependent Request Form" id="pb1" showDisclosure="false">
+                <f:facet name="toolbar">
+                    <af:panelGroupLayout id="pgl1">
+                    <af:button text="Download" id="b4" styleClass="blue-proceed"
+                                   destination="https://oaosoatst.oandoplc.com/Oando/webresources/hmo/newDependentRequest?P_REQ_NO=#{bindings.HmoRequestNo.inputValue}"
+                                   targetFrame="_blank"/>
+                        <af:spacer width="10" height="10" id="s16"/>
+                        <af:button text="Approve" id="b1" styleClass="blue-proceed" visible="#{bindings.ApprovalStatus.inputValue ne 'APPROVED'}"
+                                   actionListener="#{backingBeanScope.NewDependentReqBB.approvalAction}">
+                            <af:setPropertyListener from="APPROVE" to="#{pageFlowScope.ApproveAction}" type="action"/>
+                        </af:button>
+                        <af:spacer width="10" height="10" id="s1"/>
+                        <af:button text="Reject" id="b2" styleClass="blue-proceed" visible="#{bindings.ApprovalStatus.inputValue ne 'APPROVED'}"
+                                   actionListener="#{backingBeanScope.NewDependentReqBB.approvalAction}">
+                            <af:setPropertyListener from="REJECT" to="#{pageFlowScope.ApproveAction}" type="action"/>
+                        </af:button>
+                        <af:spacer width="10" height="10" id="s2"/>
+                        <af:button text="Cancel" id="b3" action="toSearch" styleClass="red-cancel"/>
+                        <af:popup childCreation="deferred" autoCancel="disabled" id="p1"
+                                  binding="#{backingBeanScope.NewDependentReqBB.approvalPopup}">
+                            <af:dialog id="d1" title="Approval" type="none">
+                                <f:facet name="buttonBar">
+                                    <af:panelGroupLayout id="pgl3">
+                                        <af:button text="Approve" styleClass="green-submit" id="b5"
+                                                   rendered="#{pageFlowScope.ApproveAction eq 'APPROVE'}"
+                                                   action="#{backingBeanScope.NewDependentReqBB.onClickApproveReject}"/>
+                                        <af:button text="Reject" styleClass="red-cancel" id="b6"
+                                                   rendered="#{pageFlowScope.ApproveAction eq 'REJECT'}"
+                                                   action="#{backingBeanScope.NewDependentReqBB.onClickApproveReject}"/>
+                                    </af:panelGroupLayout>
+                                </f:facet>
+                                <af:inputText value="#{bindings.ApproverComments.inputValue}" label="Comments"
+                                              autoSubmit="true" contentStyle="width:300px;"
+                                              required="#{bindings.ApproverComments.hints.mandatory}"
+                                              columns="#{bindings.ApproverComments.hints.displayWidth}"
+                                              maximumLength="#{bindings.ApproverComments.hints.precision}"
+                                              shortDesc="#{bindings.ApproverComments.hints.tooltip}" id="it9" rows="3">
+                                    <f:validator binding="#{bindings.ApproverComments.validator}"/>
+                                </af:inputText>
+                            </af:dialog>
+                        </af:popup>
+                    </af:panelGroupLayout>
+                </f:facet>
+                <af:spacer width="10" height="10" id="s3"/>
+                <af:panelGridLayout id="pgl7" inlineStyle="background:#e6f5ff  ;">
+                    <af:gridRow marginTop="5px" height="auto" id="gr6">
+                        <af:gridCell marginStart="5px" width="33%" id="gc3" halign="center">
+                            <af:outputText value="Request No" id="ot6"
+                                           inlineStyle="font-size:larger; font-weight: bold;"/>
+                        </af:gridCell>
+                        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc4" halign="center">
+                            <af:outputText value="Request Date" id="ot7"
+                                           inlineStyle="font-size:larger; font-weight: bold;"/>
+                        </af:gridCell>
+                        <af:gridCell marginStart="5px" width="34%" marginEnd="5px" id="gc22" halign="center">
+                            <af:outputText value="Request Status" id="ot10"
+                                           inlineStyle="font-size:larger; font-weight: bold;"/>
+                        </af:gridCell>
+                    </af:gridRow>
+                    <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr7">
+                        <af:gridCell marginStart="5px" width="33%" id="gc5" halign="center">
+                            <af:outputText value="#{bindings.HmoRequestNo.inputValue}" id="ot8"
+                                           inlineStyle="font-size:larger;"/>
+                        </af:gridCell>
+                        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc7" halign="center">
+                            <af:outputText value="#{bindings.CreationDate.inputValue}" id="ot9"
+                                           inlineStyle="font-size:larger;">
+                                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                            </af:outputText>
+                        </af:gridCell>
+                        <af:gridCell marginStart="5px" width="34%" marginEnd="5px" id="gc23" halign="center">
+                            <af:outputText value="#{bindings.ApprovalStatus.inputValue}" id="ot11"
+                                           inlineStyle="font-size:larger;"/>
+                        </af:gridCell>
+                    </af:gridRow>
+                </af:panelGridLayout>
+                <af:spacer width="10" height="10" id="s5"/>
+                <af:panelFormLayout id="pfl1" maxColumns="2" rows="3" labelWidth="300">
+                    <af:panelLabelAndMessage label="HMO Registration No" id="plam13">
+                        <af:outputText value="#{bindings.HmoTransReference.inputValue}"
+                                       shortDesc="#{bindings.HmoTransReference.hints.tooltip}" id="ot23">
+                            <af:convertNumber groupingUsed="false" pattern="#{bindings.HmoTransReference.format}"/>
+                        </af:outputText>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage label="HMO Category" id="plam6">
+                        <af:outputText value="#{bindings.HmoCategory.inputValue}"
+                                       shortDesc="#{bindings.HmoCategory.hints.tooltip}" id="ot14"/>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage label="HMO Option" id="plam8">
+                        <af:outputText value="#{bindings.HmoOption.inputValue}"
+                                       shortDesc="#{bindings.HmoOption.hints.tooltip}" id="ot16"/>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage label="HMO Type" id="plam14">
+                        <af:outputText value="#{bindings.HmoType.inputValue}"
+                                       shortDesc="#{bindings.HmoType.hints.tooltip}" id="ot24"/>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage label="Plan Name" id="plam9">
+                        <af:outputText value="#{bindings.HmoPlanName.inputValue}"
+                                       shortDesc="#{bindings.HmoPlanName.hints.tooltip}" id="ot17"/>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage label="Total Cost" id="plam10" rendered="#{bindings.HmoCategory.inputValue ne 'Age-based Categorization'}">
+                        <af:outputText value="#{bindings.HmoPlanTotal.inputValue}" inlineStyle="font-size:larger; font-weight: bold;"
+                                       shortDesc="#{bindings.HmoPlanTotal.hints.tooltip}" id="ot19">
+                             <af:convertNumber minFractionDigits="#{sessionScope.MinFractionDigits}"
+                                 maxFractionDigits="#{sessionScope.MaxFractionDigits}"
+                                 pattern="#{sessionScope.NumberFormat}"
+                                 minIntegerDigits="#{sessionScope.MinIntegerDigits}"/>
+                        </af:outputText>
+                    </af:panelLabelAndMessage>
+                </af:panelFormLayout>
+                <af:spacer width="10" height="20" id="s4"/>
+                <af:panelBox text="Dependent Details" id="pb3" showDisclosure="false">
+                    <f:facet name="toolbar"></f:facet>
+                    <af:spacer width="10" height="10" id="s13"/>
+                    <af:table value="#{bindings.NewDepHmoDtl_VO.collectionModel}" var="row"
+                              rows="#{bindings.NewDepHmoDtl_VO.rangeSize}"
+                              emptyText="#{bindings.NewDepHmoDtl_VO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="0"
+                              selectedRowKeys="#{bindings.NewDepHmoDtl_VO.collectionModel.selectedRow}"
+                              selectionListener="#{bindings.NewDepHmoDtl_VO.collectionModel.makeCurrent}"
+                              rowSelection="single" fetchSize="#{bindings.NewDepHmoDtl_VO.rangeSize}" id="t2"
+                              columnStretching="column:c23">
+                        <af:column id="c22" headerText="Photo" align="center">
+                            <af:image source="/profilepictureservlet?type=new_dep&amp;id=#{row.HmoDtlId}"
+                                      rendered="#{row.DepPhoto ne null}"
+                                      shortDesc="#{row.DepFirstName} #{row.DepLastName}" id="i5"
+                                      inlineStyle="height:1.5cm; width:1.5cm;"/>
+                            <af:image source="/images/no_image.png" id="i2" shortDesc="Image Not Uploaded"
+                                      rendered="#{row.DepPhoto eq null || row.DepPhoto eq ''}"
+                                      inlineStyle="height:1.5cm; width:1.5cm;"/>
+                        </af:column>
+                        <af:column id="c23" headerText="Details" align="center" width="500" noWrap="false">
+                            <af:panelGridLayout id="pgl4">
+                                <af:gridRow marginTop="5px" height="auto" id="gr1">
+                                    <af:gridCell marginStart="5px" width="50%" id="gc1">
+                                        <af:outputText value="#{row.DepTitle} #{row.DepFirstName} #{row.DepLastName}"
+                                                       inlineStyle="font-size:larger; font-weight: bold;" id="ot21"/>
+                                    </af:gridCell>
+                                    <af:gridCell marginStart="5px" width="50%" id="gc2">
+                                        <af:panelGroupLayout id="pgl14" layout="horizontal">
+                                            <af:outputText value="DOB :" id="aot4" inlineStyle="font-weight:bolder;"/>
+                                            <af:spacer width="10" height="10" id="s7"/>
+                                            <af:outputFormatted value="#{row.DepDob}" id="of6">
+                                                <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                                            </af:outputFormatted>
+                                        </af:panelGroupLayout>
+                                    </af:gridCell>
+                                </af:gridRow>
+                                <af:gridRow marginTop="5px" height="auto" id="gr2">
+                                    <af:gridCell marginStart="5px" width="50%" id="gc9">
+                                        <af:outputText value="Type :" id="ot13" inlineStyle="font-weight:bolder;"/>
+                                        <af:spacer width="10" height="10" id="s11"/>
+                                        <af:outputText value="#{row.DependentType}" id="ot2"/>
+                                    </af:gridCell>
+                                    <af:gridCell marginStart="5px" width="50%" id="gc10">
+                                        <af:panelGroupLayout id="pgl13" layout="horizontal">
+                                            <af:outputText value="Mobile No :" id="ot3"
+                                                           inlineStyle="font-weight:bolder;"/>
+                                            <af:spacer width="10" height="10" id="s8"/>
+                                            <af:outputFormatted value="#{row.MobileNo}" id="of9"></af:outputFormatted>
+                                        </af:panelGroupLayout>
+                                    </af:gridCell>
+                                </af:gridRow>
+                                <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr3">
+                                    <af:gridCell marginStart="5px" width="50%" id="gc13">
+                                        <af:outputText value="Gender :" id="ot1" inlineStyle="font-weight:bolder;"/>
+                                        <af:spacer width="10" height="10" id="s9"/>
+                                        <af:outputText value="#{row.DepGender}" id="ot20"/>
+                                    </af:gridCell>
+                                    <af:gridCell marginStart="5px" width="50%" id="gc14">
+                                        <af:outputText value="#{row.DepAgeCategory}" id="ot22"
+                                                       shortDesc="#{row.DepAgeCategory}"/>
+                                    </af:gridCell>
+                                </af:gridRow>
+                            </af:panelGridLayout>
+                        </af:column>
+                        <af:column id="c3" width="250" noWrap="false" headerText=" ">
+                            <af:panelGridLayout id="pgl5">
+                                <af:gridRow marginTop="5px" height="auto" id="gr9">
+                                    <af:gridCell marginStart="5px" width="100%" id="gc6">
+                                        <af:outputText value="Address :" id="ot4" inlineStyle="font-weight:bolder;"/>
+                                        <af:spacer width="10" height="10" id="s12"/>
+                                        <af:outputFormatted value="#{row.ResidentialAddress}" id="of5"/>
+                                    </af:gridCell>
+                                </af:gridRow>
+                                <af:gridRow marginTop="5px" height="auto" id="gr10">
+                                    <af:gridCell marginStart="5px" width="100%" id="gc11">
+                                        <af:outputText value="State Of Residence :" id="ot12"
+                                                       inlineStyle="font-weight:bolder;"/>
+                                        <af:spacer width="10" height="10" id="s10"/>
+                                        <af:outputFormatted value="#{row.StateOfResidence}" id="of7"/>
+                                    </af:gridCell>
+                                </af:gridRow>
+                                <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr11">
+                                    <af:gridCell marginStart="5px" width="100%" id="gc15">
+                                        <af:outputText value="Hospital :" id="ot5" inlineStyle="font-weight:bolder;"/>
+                                        <af:spacer width="10" height="10" id="s6"/>
+                                        <af:outputText value="#{row.Hospital}" id="of2" shortDesc="#{row.Hospital}"/>
+                                    </af:gridCell>
+                                </af:gridRow>
+                            </af:panelGridLayout>
+                        </af:column>
+                        <af:column id="c2" headerText="" width="250">
+                            <af:panelGridLayout id="pgl2">
+                                <af:gridRow marginTop="5px" height="auto" id="gr4">
+                                    <af:gridCell marginStart="5px" width="100%" id="gc8">
+                                        <af:outputText value="Dependent Cost :" id="ot26" inlineStyle="font-weight:bolder;"/>
+                                        <af:spacer width="10" height="10" id="s14"/>
+                                        <af:outputFormatted value="#{row.DependentCost}" id="of1"/>
+                                    </af:gridCell>
+                                </af:gridRow>
+                                <af:gridRow marginTop="5px" height="auto" id="gr5">
+                                    <af:gridCell marginStart="5px" width="100%" id="gc12">
+                                        <af:outputText value="Reason For Change :" id="ot27"
+                                                       inlineStyle="font-weight:bolder;"/>
+                                        <af:spacer width="10" height="10" id="s15"/>
+                                        <af:outputFormatted value="#{row.ReasonForChange}" id="of3"/>
+                                    </af:gridCell>
+                                </af:gridRow>
+                            </af:panelGridLayout>
+                        </af:column>
+                        <af:column id="c1" headerText="Evidence of DOB" width="80" align="center">
+                            <af:link id="l2" icon="/images/attach_qualifier.png"
+                                     actionListener="#{backingBeanScope.NewDependentReqBB.onClickAttachment}"/>
+                        </af:column>
+                    </af:table>
+                    <af:popup childCreation="deferred" autoCancel="disabled" id="p2"
+                              binding="#{backingBeanScope.NewDependentReqBB.attachPop}">
+                        <af:dialog id="d2" type="none" title="Evidence of DOB"
+                                   titleIconSource="/images/attach_qualifier.png">
+                            <af:table value="#{bindings.XxfndAttachment_EOView.collectionModel}" var="row"
+                                      rows="#{bindings.XxfndAttachment_EOView.rangeSize}"
+                                      emptyText="#{bindings.XxfndAttachment_EOView.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      rowBandingInterval="0"
+                                      selectedRowKeys="#{bindings.XxfndAttachment_EOView.collectionModel.selectedRow}"
+                                      selectionListener="#{bindings.XxfndAttachment_EOView.collectionModel.makeCurrent}"
+                                      rowSelection="single" fetchSize="#{bindings.XxfndAttachment_EOView.rangeSize}"
+                                      id="t1">
+                                <af:column headerText="Attachment Name" id="c4" width="200">
+                                    <af:outputText value="#{row.AttachmentName}"
+                                                   shortDesc="#{bindings.XxfndAttachment_EOView.hints.AttachmentName.tooltip}"
+                                                   id="ot18"/>
+                                </af:column>
+                                <af:column headerText="Attachment Type" id="c5" width="150">
+                                    <af:outputText value="#{row.AttachmentType}"
+                                                   shortDesc="#{bindings.XxfndAttachment_EOView.hints.AttachmentType.tooltip}"
+                                                   id="ot25"/>
+                                </af:column>
+                                <af:column id="c6" headerText="Download" width="80" align="center">
+                                    <af:link id="l1" icon="/images/func_download_16_act.png">
+                                        <af:fileDownloadActionListener method="#{backingBeanScope.NewDependentReqBB.onDownloadEvidence}"
+                                                                       filename="#{row.AttachmentName}"/>
+                                    </af:link>
+                                </af:column>
+                            </af:table>
+                        </af:dialog>
+                    </af:popup>
+                </af:panelBox>
+                <af:panelBox text="Additional Attachment Details" id="pb2"  showDisclosure="false" rendered="false">
+                    <f:facet name="toolbar"/>
+                    <af:spacer width="10" height="10" id="s19"/>
+                    <af:table value="#{bindings.XxExEmpAttachment_EOView1.collectionModel}" var="row"
+                              rows="#{bindings.XxExEmpAttachment_EOView1.rangeSize}"
+                              emptyText="#{bindings.XxExEmpAttachment_EOView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                              rowBandingInterval="0" fetchSize="#{bindings.XxExEmpAttachment_EOView1.rangeSize}"
+                              id="t3">
+                        <af:column headerText="#{bindings.XxExEmpAttachment_EOView1.hints.Attachment.label}" id="c7"
+                                   rendered="false">
+                            <af:outputText value="#{row.Attachment}" rendered="false"
+                                           shortDesc="#{bindings.XxExEmpAttachment_EOView1.hints.Attachment.tooltip}"
+                                           id="ot15"/>
+                        </af:column>
+                        <af:column headerText="Attachment Name" id="c8" width="200">
+                            <af:outputText value="#{row.AttachmentName}"
+                                           shortDesc="#{bindings.XxExEmpAttachment_EOView1.hints.AttachmentName.tooltip}"
+                                           id="ot28"/>
+                        </af:column>
+                        <af:column headerText="Attachment Type" id="c9" width="150">
+                            <af:outputText value="#{row.AttachmentType}"
+                                           shortDesc="#{bindings.XxExEmpAttachment_EOView1.hints.AttachmentType.tooltip}"
+                                           id="ot29"/>
+                        </af:column>
+                        <af:column id="c16" headerText="Download" width="80" align="center">
+                            <af:link id="l3" icon="/images/func_download_16_act.png">
+                                <af:fileDownloadActionListener method="#{backingBeanScope.NewDependentReqBB.onDownloadExEmployee}"
+                                                               filename="#{row.AttachmentName}"/>
+                            </af:link>
+                        </af:column>
+                    </af:table>
+                </af:panelBox>
+            </af:panelBox>
+        </f:facet>
+        <f:facet name="footerStart"/>
+        <f:facet name="footer"/>
+        <f:facet name="footerEnd"/>
+        <f:facet name="startPanel"/>
+        <f:facet name="endPanel"/>
+        <f:facet name="headerStart"/>
+        <f:facet name="header"/>
+        <f:facet name="headerEnd"/>
+    </af:pageTemplate>
+</ui:composition>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="NewDep_HdrDtl_VL"
+  Version="12.2.1.9.14"
+  InheritPersonalization="merge">
+  <ViewLinkDefEnd
+    Name="XxhrHmoHdr_VO"
+    Cardinality="1"
+    Source="true"
+    Owner="model.vo.XxhrHmoHdr_VO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="XxhrHmoHdr_VO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.vo.XxhrHmoHdr_VO.HmoHdrId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="XxhrHmoDtl_VO"
+    Cardinality="-1"
+    Owner="model.vo.XxhrHmoDtl_VO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="XxhrHmoDtl_VO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="model.vo.XxhrHmoDtl_VO.HmoHdrId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+</ViewLink>

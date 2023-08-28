@@ -1,0 +1,41 @@
+//Groovy Scripts for model.vo.XxhrHmoTrxHdr_EOView
+
+package model.vo
+
+import oracle.jbo.script.annotation.TransientValueExpression;
+import oracle.jbo.script.annotation.RefreshExpression;
+
+
+
+
+@TransientValueExpression(attributeName="Option_Switcher")
+def Option_Switcher_ExpressionScript_Expression()
+{
+if(HmoType != null && HmoType == 'BUPA'){
+return 'LOV_HmoOption1';
+}else{
+return 'LOV_HmoOption1';
+}
+}
+
+
+@RefreshExpression(attributeName="Option_Switcher")
+def Option_Switcher_RecalcExpressionScript_RecalcExpression()
+{
+true
+}
+
+
+@TransientValueExpression(attributeName="HmoPlanNameTrans")
+def HmoPlanNameTrans_ExpressionScript_Expression()
+{
+if(HmoMasterHdr_NameRef.first() !=null && HmoMasterHdrId !=null)
+{
+HmoMasterHdr_NameRef.first().getAttribute("HmoPlanName");
+}
+else
+{
+return null;
+}
+}
+

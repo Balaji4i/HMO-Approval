@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14" id="SearchHMOPageDef"
+                Package="fragment">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="SearchHMOTrxHdr_ROVO" RangeSize="10" DataControl="Oando_AMDataControl"
+              id="SearchHMOTrxHdr_ROVOIterator"/>
+    <searchRegion Binds="SearchHMOTrxHdr_ROVOIterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="SearchHMOTrxHdr_ROVOQuery"/>
+    <searchRegion Criteria="HMO_Search" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="SearchHMOTrxHdr_ROVOIterator" id="HMOSearchQuery"/>
+    <iterator Binds="HMOApprovalCount_ROVO" RangeSize="10" DataControl="Oando_AMDataControl"
+              id="HMOApprovalCount_ROVOIterator"/>
+    <iterator Binds="XxhrHmoTrxHdr_Ex_Emp_ROVO1" RangeSize="10" DataControl="Oando_AMDataControl"
+              id="XxhrHmoTrxHdr_Ex_Emp_ROVO1Iterator"/>
+    <searchRegion Criteria="HMO_Ex_Emp_SearchVC" Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="XxhrHmoTrxHdr_Ex_Emp_ROVO1Iterator" id="HMOExEmpSearchVCQuery"/>
+    <iterator id="HMOExEmpApprovalCount_ROVOIterator" Binds="HMOExEmpApprovalCount_ROVO"
+              DataControl="Oando_AMDataControl" RangeSize="10"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="SearchHMOTrxHdr_ROVOIterator" id="SearchHMOTrxHdr_ROVO">
+      <nodeDefinition DefName="model.ro.XxhrHmoTrxHdr_ROVO" Name="SearchHMOTrxHdr_ROVO0">
+        <AttrNames>
+          <Item Value="HmoMasterHdrId"/>
+          <Item Value="HmoTrxHdrId"/>
+          <Item Value="HmoRequestNo"/>
+          <Item Value="HmoRequestDate"/>
+          <Item Value="HmoOption"/>
+          <Item Value="HmoCategory"/>
+          <Item Value="HmoPlanDeduction"/>
+          <Item Value="DisplayName"/>
+          <Item Value="PersonNumber"/>
+          <Item Value="HmoType"/>
+          <Item Value="HmoPlanTotal"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="CreationDate"/>
+          <Item Value="LastUpdatedBy"/>
+          <Item Value="LastUpdateDate"/>
+          <Item Value="ApprovalStatus"/>
+          <Item Value="HmoPlan"/>
+          <Item Value="AssignmentStatusType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="HMOApprovalCount_ROVOIterator" id="AllCount">
+      <AttrNames>
+        <Item Value="AllCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="HMOApprovalCount_ROVOIterator" id="SubmittedCount">
+      <AttrNames>
+        <Item Value="SubmittedCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="HMOApprovalCount_ROVOIterator" id="ApprovedCount">
+      <AttrNames>
+        <Item Value="ApprovedCount"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="XxhrHmoTrxHdr_Ex_Emp_ROVO1Iterator" id="XxhrHmoTrxHdr_Ex_Emp_ROVO1">
+      <nodeDefinition DefName="model.ro.XxhrHmoTrxHdr_Ex_Emp_ROVO" Name="XxhrHmoTrxHdr_Ex_Emp_ROVO10">
+        <AttrNames>
+          <Item Value="HmoTrxHdrId"/>
+          <Item Value="HmoRequestNo"/>
+          <Item Value="HmoRequestDate"/>
+          <Item Value="HmoMasterHdrId"/>
+          <Item Value="HmoType"/>
+          <Item Value="MaritalStatus"/>
+          <Item Value="ResiAddress"/>
+          <Item Value="HmoCategory"/>
+          <Item Value="HmoOption"/>
+          <Item Value="HmoPlanTotal"/>
+          <Item Value="HmoPlanDeduction"/>
+          <Item Value="CreatedBy"/>
+          <Item Value="LastUpdatedBy"/>
+          <Item Value="ApprovalStatus"/>
+          <Item Value="HmoPlan"/>
+          <Item Value="ContactPartyName"/>
+          <Item Value="ContactPartyNumber"/>
+          <Item Value="PartyId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="HMOExEmpApprovalCount_ROVOIterator" id="AllCount1">
+      <AttrNames>
+        <Item Value="AllCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="HMOExEmpApprovalCount_ROVOIterator" id="SubmittedCount1">
+      <AttrNames>
+        <Item Value="SubmittedCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="HMOExEmpApprovalCount_ROVOIterator" id="ApprovedCount1">
+      <AttrNames>
+        <Item Value="ApprovedCount"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

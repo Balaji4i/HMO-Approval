@@ -1,0 +1,519 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <?audit suppress oracle.ide.xml.validation-error?>
+    <af:pageTemplate viewId="/oracle/apps/uikit/common/pageTemplates/MainPageTemplate.jspx" id="pt1">
+        <f:facet name="pageContents">
+            <af:panelGroupLayout layout="vertical" id="pgl1">
+                <af:panelSplitter id="ps1" orientation="vertical" splitterPosition="100" disabled="true">
+                    <f:facet name="first">
+                        <af:panelDashboard id="pd1" styleClass="AFStretchWidth" rowHeight="90px" columns="6">
+                            <af:panelBox text="All" id="pb3" showDisclosure="false" styleClass="leftBorderBlack"
+                                         background="dark">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.AllCount.inputValue}" id="l1"
+                                         inlineStyle="font-size:7mm;color:Black;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickStatusCount}">
+                                    <af:setPropertyListener from="ALL" to="#{pageFlowScope.statusType}" type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="Medical Details" id="pb1" showDisclosure="false"
+                                         styleClass="leftBorderSkyBlue" background="dark">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.Maintance.inputValue}" id="l2"
+                                         inlineStyle="font-size:7mm;color:Blue;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickStatusCount}">
+                                    <af:setPropertyListener from="MAINTANCE" to="#{pageFlowScope.statusType}"
+                                                            type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="Reimbursement Claim" id="pb2" showDisclosure="false"
+                                         styleClass="leftBorderRed" background="dark">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.ReimbursementClaim.inputValue}" id="l3"
+                                         inlineStyle="font-size:7mm;color:Red;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickStatusCount}">
+                                    <af:setPropertyListener from="REIMBURSEMENT_CLAIM" to="#{pageFlowScope.statusType}"
+                                                            type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="Complaints" id="pb5" showDisclosure="false" styleClass="leftBorderYellow"
+                                         background="dark">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.Complaint.inputValue}" id="l4"
+                                         inlineStyle="font-size:7mm;color:Orange;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickStatusCount}">
+                                    <af:setPropertyListener from="COMPLAINT" to="#{pageFlowScope.statusType}"
+                                                            type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="Card Replacement" id="pb6" showDisclosure="false"
+                                         styleClass="leftBorderGreen" background="dark">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.Card.inputValue}" id="l6"
+                                         inlineStyle="font-size:7mm;color:Green;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickStatusCount}">
+                                    <af:setPropertyListener from="CARD" to="#{pageFlowScope.statusType}" type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="New Dependent" id="pb7" showDisclosure="false"
+                                         styleClass="leftBorderBlue" background="dark">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.NewDependent.inputValue}" id="l5"
+                                         inlineStyle="font-size:7mm;color:Blue;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickStatusCount}">
+                                    <af:setPropertyListener from="NEW_DEPENDENT" to="#{pageFlowScope.statusType}"
+                                                            type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                        </af:panelDashboard>
+                    </f:facet>
+                    <f:facet name="second">
+                        <af:panelBox text="HMO Approval" id="pb4" showDisclosure="false">
+                            <f:facet name="toolbar"/>
+                            <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+                                <f:facet name="menus"/>
+                                <f:facet name="toolbar">
+                                    <af:toolbar id="t2" flex="10">
+                                        <af:panelGroupLayout id="pgl2">
+                                            <af:quickQuery label="Search Request" id="qq1"
+                                                           value="#{bindings.SearchRequestQuery.queryDescriptor}"
+                                                           model="#{bindings.SearchRequestQuery.queryModel}"
+                                                           queryListener="#{bindings.SearchRequestQuery.processQuery}"
+                                                           queryOperationListener="#{bindings.SearchRequestQuery.processQueryOperation}"
+                                                           searchDesc="Search"/>
+                                        </af:panelGroupLayout>
+                                    </af:toolbar>
+                                </f:facet>
+                                <f:facet name="statusbar"/>
+                                <af:table value="#{bindings.SearchHMOOtherRequests_ROVO.collectionModel}" var="row"
+                                          rows="#{bindings.SearchHMOOtherRequests_ROVO.rangeSize}"
+                                          emptyText="#{bindings.SearchHMOOtherRequests_ROVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          rowBandingInterval="0"
+                                          selectedRowKeys="#{bindings.SearchHMOOtherRequests_ROVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.SearchHMOOtherRequests_ROVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" fetchSize="8" scrollPolicy="page"
+                                          filterModel="#{bindings.SearchHMOOtherRequests_ROVOQuery.queryDescriptor}"
+                                          filterVisible="false"
+                                          queryListener="#{bindings.SearchHMOOtherRequests_ROVOQuery.processQuery}"
+                                          varStatus="vs" id="t1" columnStretching="column:c8">
+                                    <af:column id="c12" headerText="S.No" align="center" width="50">
+                                        <af:outputText value="#{vs.index+1}" id="ot12"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.RequestNo.name}"
+                                               filterable="true" sortable="true" rendered="false"
+                                               headerText="#{bindings.SearchHMOOtherRequests_ROVO.hints.RequestNo.label}"
+                                               id="c1">
+                                        <af:outputText value="#{row.RequestNo}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.RequestNo.tooltip}"
+                                                       id="ot1">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.SearchHMOOtherRequests_ROVO.hints.RequestNo.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.RequestNumber.name}"
+                                               filterable="true" sortable="true" headerText="Request No" id="c2"
+                                               width="150">
+                                        <af:link text="#{row.RequestNumber}" id="l7"
+                                                 action="#{backingBeanScope.SearchAdditionalRequest.onClickEditReq}">
+                                            <af:setPropertyListener from="#{row.RequestNo}"
+                                                                    to="#{pageFlowScope.RequestEditID}" type="action"/>
+                                            <af:setPropertyListener from="#{row.RequestType}"
+                                                                    to="#{pageFlowScope.RequestType}" type="action"/>
+                                            <af:setPropertyListener from="#{row.Emailaddress}"
+                                                                    to="#{sessionScope.UserEmailAddress}"
+                                                                    type="action"/>
+                                        </af:link>
+                                    </af:column>
+                                    <af:column headerText="Request Date" id="c13">
+                                        <af:outputText value="#{row.CreationDate}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.CreationDate.tooltip}"
+                                                       id="ot2">
+                                            <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.HmoTransReference.name}"
+                                               filterable="true" sortable="true" headerText="HMO Registration #" id="c3"
+                                               width="130">
+                                        <af:outputText value="#{row.HmoTransReference}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.HmoTransReference.tooltip}"
+                                                       id="ot3">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.SearchHMOOtherRequests_ROVO.hints.HmoTransReference.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.RequestDetails.name}"
+                                               filterable="true" sortable="true" headerText="Request Details" id="c10"
+                                               width="220">
+                                        <af:outputText value="#{row.RequestDetails}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.RequestDetails.tooltip}"
+                                                       id="ot10"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.PersonNumber.name}"
+                                               filterable="true" sortable="true" headerText="Employee No" id="c4"
+                                               width="120">
+                                        <af:outputText value="#{row.PersonNumber}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.PersonNumber.tooltip}"
+                                                       id="ot4">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.SearchHMOOtherRequests_ROVO.hints.PersonNumber.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.Title.name}"
+                                               filterable="true" sortable="true" visible="false" headerText="Title"
+                                               id="c5">
+                                        <af:outputText value="#{row.Title}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.Title.tooltip}"
+                                                       id="ot5"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.FirstName.name}"
+                                               filterable="true" sortable="true" headerText="First Name" visible="false"
+                                               id="c6">
+                                        <af:outputText value="#{row.FirstName}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.FirstName.tooltip}"
+                                                       id="ot6"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.LastName.name}"
+                                               filterable="true" sortable="true" headerText="Last Name" visible="false"
+                                               id="c7">
+                                        <af:outputText value="#{row.LastName}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.LastName.tooltip}"
+                                                       id="ot7"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.Reason.name}"
+                                               filterable="true" sortable="true" headerText="Reason" id="c8">
+                                        <af:outputText value="#{row.Reason}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.Reason.tooltip}"
+                                                       id="ot8"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.RequestType.name}"
+                                               filterable="true" sortable="true" headerText="Type" visible="false"
+                                               id="c9">
+                                        <af:outputText value="#{row.RequestType}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.RequestType.tooltip}"
+                                                       id="ot9"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchHMOOtherRequests_ROVO.hints.ApprovalStatus.name}"
+                                               filterable="true" sortable="true" headerText="Status" id="c11"
+                                               width="200">
+                                        <af:outputText value="#{row.ApprovalStatus}"
+                                                       inlineStyle="font-weight: bold; color:#{(row.ApprovalStatus eq 'APPROVED')?'green' : (row.ApprovalStatus eq 'SUBMITTED FOR APPROVAL')?'orange' : 'black'}"
+                                                       shortDesc="#{bindings.SearchHMOOtherRequests_ROVO.hints.ApprovalStatus.tooltip}"
+                                                       id="ot11"/>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelBox>
+                    </f:facet>
+                </af:panelSplitter>
+                <af:panelSplitter orientation="vertical" splitterPosition="100" disabled="true" id="ps2">
+                    <f:facet name="first">
+                        <af:panelDashboard styleClass="AFStretchWidth" rowHeight="90px" columns="6" id="pd2">
+                            <af:panelBox text="All" showDisclosure="false" styleClass="leftBorderBlack"
+                                         background="dark" id="pb8">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.AllCount1.inputValue}"
+                                         inlineStyle="font-size:7mm;color:Black;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickExEmpStatusCount}"
+                                         id="l9">
+                                    <af:setPropertyListener from="ALL" to="#{pageFlowScope.statusType}" type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="Medical Details" showDisclosure="false" styleClass="leftBorderSkyBlue"
+                                         background="dark" id="pb9">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.Maintance1.inputValue}"
+                                         inlineStyle="font-size:7mm;color:Blue;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickExEmpStatusCount}"
+                                         id="l10">
+                                    <af:setPropertyListener from="MAINTANCE" to="#{pageFlowScope.statusType}"
+                                                            type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="Reimbursement Claim" showDisclosure="false" styleClass="leftBorderRed"
+                                         background="dark" id="pb10">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.ReimbursementClaim1.inputValue}"
+                                         inlineStyle="font-size:7mm;color:Red;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickExEmpStatusCount}"
+                                         id="l11">
+                                    <af:setPropertyListener from="REIMBURSEMENT_CLAIM" to="#{pageFlowScope.statusType}"
+                                                            type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="Complaints" showDisclosure="false" styleClass="leftBorderYellow"
+                                         background="dark" id="pb11">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.Complaint1.inputValue}"
+                                         inlineStyle="font-size:7mm;color:Orange;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickExEmpStatusCount}"
+                                         id="l12">
+                                    <af:setPropertyListener from="COMPLAINT" to="#{pageFlowScope.statusType}"
+                                                            type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="Card Replacement" showDisclosure="false" styleClass="leftBorderGreen"
+                                         background="dark" id="pb12">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.Card1.inputValue}"
+                                         inlineStyle="font-size:7mm;color:Green;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickExEmpStatusCount}"
+                                         id="l13">
+                                    <af:setPropertyListener from="CARD" to="#{pageFlowScope.statusType}" type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                            <af:panelBox text="New Dependent" showDisclosure="false" styleClass="leftBorderBlue"
+                                         background="dark" id="pb13">
+                                <f:facet name="toolbar"/>
+                                <af:link text="#{bindings.NewDependent1.inputValue}"
+                                         inlineStyle="font-size:7mm;color:Blue;text-align:center;"
+                                         actionListener="#{backingBeanScope.SearchAdditionalRequest.onClickExEmpStatusCount}"
+                                         id="l14">
+                                    <af:setPropertyListener from="NEW_DEPENDENT" to="#{pageFlowScope.statusType}"
+                                                            type="action"/>
+                                </af:link>
+                            </af:panelBox>
+                        </af:panelDashboard>
+                    </f:facet>
+                    <f:facet name="second">
+                        <af:panelBox text="Ex Employee HMO Approval" showDisclosure="false" id="pb14">
+                            <f:facet name="toolbar"/>
+                            <af:panelCollection styleClass="AFStretchWidth" id="pc2">
+                                <f:facet name="menus"/>
+                                <f:facet name="toolbar">
+                                    <af:toolbar flex="10" id="t4">
+                                        <af:panelGroupLayout id="pgl3">
+                                            <af:quickQuery label="Search Request" id="qq2"
+                                                           value="#{bindings.SearchRequestQuery1.queryDescriptor}"
+                                                           model="#{bindings.SearchRequestQuery1.queryModel}"
+                                                           queryListener="#{bindings.SearchRequestQuery1.processQuery}"
+                                                           queryOperationListener="#{bindings.SearchRequestQuery1.processQueryOperation}"
+                                                           searchDesc="Search"/>
+                                        </af:panelGroupLayout>
+                                    </af:toolbar>
+                                </f:facet>
+                                <f:facet name="statusbar"/>
+                                <af:table value="#{bindings.SearchExEmpHMOOtherReq_ROVO.collectionModel}" var="row"
+                                          rows="#{bindings.SearchExEmpHMOOtherReq_ROVO.rangeSize}"
+                                          emptyText="#{bindings.SearchExEmpHMOOtherReq_ROVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          rowBandingInterval="0"
+                                          selectedRowKeys="#{bindings.SearchExEmpHMOOtherReq_ROVO.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.SearchExEmpHMOOtherReq_ROVO.collectionModel.makeCurrent}"
+                                          rowSelection="single" fetchSize="8" scrollPolicy="page"
+                                          filterModel="#{bindings.SearchRequestQuery1.queryDescriptor}"
+                                          filterVisible="false"
+                                          queryListener="#{bindings.SearchRequestQuery1.processQuery}" varStatus="vs"
+                                          id="t3" columnStretching="column:c8">
+                                    <af:column id="c14" headerText="S.No" align="center" width="50">
+                                        <af:outputText value="#{vs.index+1}" id="ot13"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestNo.name}"
+                                               filterable="true" sortable="true" rendered="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestNo.label}"
+                                               id="resId1c2">
+                                        <af:outputText value="#{row.RequestNo}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestNo.tooltip}"
+                                                       id="ot14">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestNo.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestNumber.name}"
+                                               filterable="true" sortable="true" headerText="Request No" width="150"
+                                               id="resId1c1">
+                                        <af:link text="#{row.RequestNumber}" action="#{backingBeanScope.SearchAdditionalRequest.onClickEditReq}" id="l8">
+                                            <af:setPropertyListener from="#{row.RequestNo}"
+                                                                    to="#{pageFlowScope.RequestEditID}" type="action"/>
+                                            <af:setPropertyListener from="#{row.RequestType}"
+                                                                    to="#{pageFlowScope.RequestType}" type="action"/>
+                                            <af:setPropertyListener from="#{row.Emailaddress}"
+                                                                    to="#{sessionScope.UserEmailAddress}"
+                                                                    type="action"/>
+                                            <af:setPropertyListener from="#{row.PartyId}"
+                                                                    to="#{pageFlowScope.partyId}"
+                                                                    type="action"/>                        
+                                        </af:link>
+                                    </af:column>
+                                    <af:column headerText="Request Date" id="resId1c13">
+                                        <af:outputText value="#{row.CreationDate}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.CreationDate.tooltip}"
+                                                       id="ot25">
+                                            <af:convertDateTime pattern="dd-MMM-yyyy"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.HmoTransReference.name}"
+                                               filterable="true" sortable="true" width="130"
+                                               headerText="HMO Registration #" id="resId1c3">
+                                        <af:outputText value="#{row.HmoTransReference}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.HmoTransReference.tooltip}"
+                                                       id="ot15">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.HmoTransReference.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestDetails.name}"
+                                               filterable="true" sortable="true" headerText="Request Details"
+                                               width="220" id="resId1c18">
+                                        <af:outputText value="#{row.RequestDetails}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestDetails.tooltip}"
+                                                       id="ot30"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PersonId.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PersonId.label}"
+                                               id="resId1c4">
+                                        <af:outputText value="#{row.PersonId}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PersonId.tooltip}"
+                                                       id="ot16">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PersonId.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PersonNumber.name}"
+                                               filterable="true" sortable="true" headerText="Enrollee No" width="120"
+                                               id="resId1c5">
+                                        <af:outputText value="#{row.PersonNumber}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PersonNumber.tooltip}"
+                                                       id="ot17">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PersonNumber.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.Title.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.Title.label}"
+                                               id="resId1c6">
+                                        <af:outputText value="#{row.Title}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.Title.tooltip}"
+                                                       id="ot18"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.FirstName.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.FirstName.label}"
+                                               id="resId1c7">
+                                        <af:outputText value="#{row.FirstName}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.FirstName.tooltip}"
+                                                       id="ot19"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastName.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastName.label}"
+                                               id="resId1c8">
+                                        <af:outputText value="#{row.LastName}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastName.tooltip}"
+                                                       id="ot20"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.Reason.name}"
+                                               filterable="true" sortable="true" headerText="Reason" id="resId1c9">
+                                        <af:outputText value="#{row.Reason}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.Reason.tooltip}"
+                                                       id="ot21"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestType.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestType.label}"
+                                               id="resId1c10">
+                                        <af:outputText value="#{row.RequestType}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.RequestType.tooltip}"
+                                                       id="ot22"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.ActiveFlag.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.ActiveFlag.label}"
+                                               id="resId1c11">
+                                        <af:outputText value="#{row.ActiveFlag}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.ActiveFlag.tooltip}"
+                                                       id="ot23"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.CreatedBy.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.CreatedBy.label}"
+                                               id="resId1c12">
+                                        <af:outputText value="#{row.CreatedBy}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.CreatedBy.tooltip}"
+                                                       id="ot24"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdatedBy.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdatedBy.label}"
+                                               id="resId1c14">
+                                        <af:outputText value="#{row.LastUpdatedBy}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdatedBy.tooltip}"
+                                                       id="ot26"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdateDate.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdateDate.label}"
+                                               id="resId1c15">
+                                        <f:facet name="filter">
+                                            <af:inputDate value="#{bindings.SearchRequestQuery1.queryDescriptor.filterConjunctionCriterion.criterionMap.LastUpdateDate.value}"
+                                                          id="id2">
+                                                <af:convertDateTime pattern="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdateDate.format}"/>
+                                            </af:inputDate>
+                                        </f:facet>
+                                        <af:outputText value="#{row.LastUpdateDate}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdateDate.tooltip}"
+                                                       id="ot27">
+                                            <af:convertDateTime pattern="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdateDate.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdateLogin.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdateLogin.label}"
+                                               id="resId1c16">
+                                        <af:outputText value="#{row.LastUpdateLogin}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.LastUpdateLogin.tooltip}"
+                                                       id="ot28"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.ApprovalStatus.name}"
+                                               filterable="true" sortable="true" headerText="Status" width="200"
+                                               id="resId1c17">
+                                        <af:outputText value="#{row.ApprovalStatus}"
+                                        inlineStyle="font-weight: bold; color:#{(row.ApprovalStatus eq 'APPROVED')?'green' : (row.ApprovalStatus eq 'SUBMITTED FOR APPROVAL')?'orange' : 'black'}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.ApprovalStatus.tooltip}"
+                                                       id="ot29"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.DeleteFlag.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.DeleteFlag.label}"
+                                               id="resId1c19">
+                                        <af:outputText value="#{row.DeleteFlag}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.DeleteFlag.tooltip}"
+                                                       id="ot31"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.Emailaddress.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.Emailaddress.label}"
+                                               id="resId1c20">
+                                        <af:outputText value="#{row.Emailaddress}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.Emailaddress.tooltip}"
+                                                       id="ot32"/>
+                                    </af:column>
+                                    <af:column sortProperty="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PartyId.name}"
+                                               filterable="true" sortable="true" visible="false"
+                                               headerText="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PartyId.label}"
+                                               id="resId1c21">
+                                        <af:outputText value="#{row.PartyId}"
+                                                       shortDesc="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PartyId.tooltip}"
+                                                       id="ot33">
+                                            <af:convertNumber groupingUsed="false"
+                                                              pattern="#{bindings.SearchExEmpHMOOtherReq_ROVO.hints.PartyId.format}"/>
+                                        </af:outputText>
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </af:panelBox>
+                    </f:facet>
+                </af:panelSplitter>
+            </af:panelGroupLayout>
+        </f:facet>
+        <f:facet name="footerStart"/>
+        <f:facet name="footer"/>
+        <f:facet name="footerEnd"/>
+        <f:facet name="startPanel"/>
+        <f:facet name="endPanel"/>
+        <f:facet name="headerStart"/>
+        <f:facet name="header"/>
+        <f:facet name="headerEnd"/>
+    </af:pageTemplate>
+</jsp:root>
